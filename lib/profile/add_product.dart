@@ -202,7 +202,7 @@ class _AddState extends State<Add> {
 
                                 isExpanded: true,
                                 hint: Text(hint),
-                                items: <String>['Vêtement','Chaussure','Sport et Loisir', 'Enfant', 'High Tech','Livre','Agriculture'].map((String value) {
+                                items: <String>['Vêtement','Chaussure', 'Enfant', 'High Tech','Librairie','Agriculture','Quincaillerie'].map((String value) {
                                   return new DropdownMenuItem<String>(
                                     value: value,
                                     child: new Text(value),
@@ -223,10 +223,15 @@ class _AddState extends State<Add> {
                               padding: EdgeInsets.symmetric(horizontal: 30),
                               color: Color(0xFFF17532),
                               onPressed: isPress ? null : (){
-                                  sendProduct(context);
-                                  setState(() {
-                                    isPress = true;
-                                  });
+                                  if(_file != null && !nameController.text.isEmpty && !descController.text.isEmpty && !tag.isEmpty && !priceController.text.isEmpty && !Function.id.isEmpty){
+                                    sendProduct(context);
+                                    setState(() {
+                                      isPress = true;
+                                    });
+                                  }else{
+                                    Toast.show("Veillez remplir tous les champs !", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM,backgroundColor: Color(0xFFF17532));
+                                  }
+
                               },
                               child: Text("Publier",style: TextStyle(
                                 color: Colors.white

@@ -114,7 +114,7 @@ class _AddState extends State<Modifier> {
       _article.description = descController.text.toString();
       _article.price = int.parse(priceController.text);
 
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ArticleDetail(_article)));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ArticlePage()));
     });
    // print(response.statusCode);
 
@@ -228,7 +228,7 @@ class _AddState extends State<Modifier> {
 
                           isExpanded: true,
                           hint: Text(hint),
-                          items: <String>['Vêtement', 'Sport et Loisir', 'Enfant', 'High Tech','Livre'].map((String value) {
+                          items: <String>['Vêtement','Chaussure', 'Enfant', 'High Tech','Librairie','Agriculture','Quincaillerie'].map((String value) {
                             return new DropdownMenuItem<String>(
                               value: value,
                               child: new Text(value),

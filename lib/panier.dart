@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:menu/CartModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:menu/profile/historique_db.dart';
@@ -21,11 +22,32 @@ class _PanierState extends State<Panier> {
   bool isDone = false;
   CartHelper helper = CartHelper();
   HistoriqueCartHelper historiqueCartHelper = HistoriqueCartHelper();
+  FlutterLocalNotificationsPlugin flutterNotifiaction;
+
   @override
   void initState() {
 
     super.initState();
 
+    var android = new AndroidInitializationSettings('logo');
+    var ios = new IOSInitializationSettings();
+    var initialisationSetting = new InitializationSettings(android, ios);
+    flutterNotifiaction = new FlutterLocalNotificationsPlugin();
+    flutterNotifiaction.initialize(initialisationSetting, onSelectNotification: notificationSelected);
+
+
+  }
+
+  Future notificationSelected(String payload) async{
+
+  }
+
+  Future showNotification(String title,String content) async{
+    var androidDetail = new AndroidNotificationDetails('channelId', 'channelName', 'channelDescription',importance: Importance.Max);
+    var iosDetail = new IOSNotificationDetails();
+    var generalNotificationDetails = new NotificationDetails(androidDetail, iosDetail);
+
+    await flutterNotifiaction.show(0, title, content, generalNotificationDetails);
   }
 
 
@@ -49,7 +71,14 @@ class _PanierState extends State<Panier> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Panier"),centerTitle: true,backgroundColor: Color(0xFFF17532),),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
+        title: Text("Panier",style: TextStyle(color: Colors.white),),
+        centerTitle: true,
+        backgroundColor: Color(0xFFF17532),
+      ),
       body: FutureBuilder(
         future: load(),
         // ignore: missing_return
@@ -142,9 +171,9 @@ class _PanierState extends State<Panier> {
                                 url: tasks[i].url
                               );
 
-                            //  var response = await http.post("http://shapshapmarket.com/api/create/",body:data);
+                              var response = await http.post("http://shapshapmarket.com/api/create/",body:data);
 
-                            /**  if(response.statusCode == 201){
+                              if(response.statusCode == 201){
                                 print(" commande done with success");
 
                                 setState(() {
@@ -160,19 +189,14 @@ class _PanierState extends State<Panier> {
                               }else{
                                 jsonData = json.decode(response.body);
                                 print(jsonData.toString());
-                              }  **/
+                              }
 
-                              historiqueCartHelper.insertTask(hist).then((value){
-                                helper.deleteDog(tasks[i].product_id).then((value){
-                                });
-                              });
-                            setState(() {
-                              isDone = true;
-                            });
+
 
                             }
 
-                            Toast.show("Vos commandes on été enregistrer avec success", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM,backgroundColor: Color(0xFFF17532));
+                            //Toast.show("Vos commandes on été enregistrer avec succès", context, duration: Toast.LENGTH_LONG, gravity:  Toast.BOTTOM,backgroundColor: Color(0xFFF17532));
+                            showNotification("Commande","Votre commande on été enregistrer avec succès");
 
 
                             },

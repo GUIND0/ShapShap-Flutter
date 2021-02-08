@@ -67,7 +67,7 @@ class _SearchState extends State<Search> {
                             color: Colors.white
                         ),
                         decoration: InputDecoration(
-                            hintText: "Rechercher un produit",
+                            hintText: "Rechercher",
                             hintStyle: TextStyle(
                                 color: Colors.white54
                             ),
@@ -110,7 +110,9 @@ class _SearchState extends State<Search> {
                       if(snapshot.data == null){
                         return Center(
                           child: Container(
-                            child: Text("En chargement ...",style: TextStyle(color: Colors.black),),
+                            child: CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFFCC8053)),
+                            ),
                           ),
                         );
 
@@ -122,7 +124,7 @@ class _SearchState extends State<Search> {
                             Container(
                               padding: EdgeInsets.only(right: 15.0,left: 15.0),
                               width: MediaQuery.of(context).size.width - 30.0,
-                              height: MediaQuery.of(context).size.height - 300.0,
+                              height: MediaQuery.of(context).size.height - 150.0,
                               child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                                 // ignore: missing_return
                                 itemCount: snapshot.data.length,
@@ -201,7 +203,7 @@ class _SearchState extends State<Search> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => Panier()));
         },
         backgroundColor: Color(0xFFF17532),
-        child: Icon(Icons.shopping_basket),
+        child: Icon(Icons.shopping_basket,color: Colors.white,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(),

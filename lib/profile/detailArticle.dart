@@ -98,7 +98,7 @@ class _DetailState extends State<ArticleDetail> {
           SizedBox(height: 20.0,),
           Center(
             child: Text(
-              _p.price.toString(),
+              _p.price.toString() + ' FCFA',
               style: TextStyle(
                   fontFamily: 'Varela',
                   fontSize: 22.0,
@@ -140,7 +140,7 @@ class _DetailState extends State<ArticleDetail> {
           SizedBox(height: 20.0,),
           GestureDetector(
             onTap: () async {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Modifier(_p)));
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Modifier(_p)));
             },
             child: Center(
               child: Container(

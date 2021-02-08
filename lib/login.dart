@@ -60,13 +60,15 @@ class _LoginPageState extends State<LoginPage> {
         SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
         var response = await http.post("http://shapshapmarket.com/auth/token/login/",body:data);
         if(response.statusCode == 200){
-          jsonData = json.decode(response.body);
+          String source = Utf8Decoder().convert(response.bodyBytes);
+          jsonData = json.decode(source);
           sharedPreferences.setString("token", jsonData['auth_token']);
 
 
           var response2 = await http.get("http://shapshapmarket.com/auth/users/me/",headers: {"Authorization": "Token "+jsonData['auth_token']});
           if(response2.statusCode == 200){
-            var jsonData2 = json.decode(response2.body);
+            String source1 = Utf8Decoder().convert(response2.bodyBytes);
+            var jsonData2 = json.decode(source1);
             print(response2.body.toString());
 
             sharedPreferences.setString("id", jsonData2['id'].toString()).then((value){

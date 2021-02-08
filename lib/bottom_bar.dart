@@ -44,7 +44,7 @@ class BottomBar extends StatelessWidget {
                   GestureDetector(
                       child: Icon(Icons.person_outline,color: Color(0xFFEF7532),size: 30,),
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyApp()));
                       
                     },
                   ),
@@ -60,7 +60,7 @@ class BottomBar extends StatelessWidget {
                   GestureDetector(
                     child: Icon(Icons.search,color: Color(0xFFEF7532),size: 30),
                     onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Search()));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Search()));
                     },
                   ),
                   GestureDetector(

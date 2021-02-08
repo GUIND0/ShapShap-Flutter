@@ -18,7 +18,7 @@ TextEditingController passwordController = new TextEditingController();
 TextEditingController passwordConfirmeController = new TextEditingController();
 TextEditingController PhoneController = new TextEditingController();
 TextEditingController userController = new TextEditingController();
-String tag = "";
+String tag = "Client";
 
 class RegisterApp extends StatelessWidget {
   @override
@@ -39,55 +39,6 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool _isLoading = false;
   bool _hasError = false;
-
-  signIn(String email, String password) async{
-
-
-    if(firstController.text.length > 3){
-      if(lastController.text.length > 3){
-        if(RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(emailController.text)){
-          if(PhoneController.text.length == 8){
-                if(passwordController.text.length > 5){
-                      if(passwordController.text == passwordController.text){
-                        setState(() {
-                          _isLoading = true;
-
-                        });
-
-                      }else{
-                        // confirm
-                        Toast.show("Pas de correspondance entre le mot de passe et la confirmation", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER,backgroundColor: Color(0xFFF17532));
-                      }
-                }else{
-                  //  password
-                  Toast.show("Le mot de passe doit être superieur à 3 caractères", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER,backgroundColor: Color(0xFFF17532));
-
-                }
-          }else{
-            //phone
-
-            Toast.show("Le numéro de téléphone n'est pas valide", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER,backgroundColor: Color(0xFFF17532));
-
-          }
-        }else{
-          //email
-          Toast.show("Adresse email invalide", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER,backgroundColor: Color(0xFFF17532));
-
-        }
-      }else{
-        //nom
-        Toast.show("Nom doit être superieur à 3 caractères ", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER,backgroundColor: Color(0xFFF17532));
-
-      }
-    }else{
-      //prenom
-
-      Toast.show("Prénom doit être superieur à 3 caractères ", context, duration: Toast.LENGTH_LONG, gravity:  Toast.CENTER,backgroundColor: Color(0xFFF17532));
-
-    }
-
-
-  }
 
   @override
   void initState() {

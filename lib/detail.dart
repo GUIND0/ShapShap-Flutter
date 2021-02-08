@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'bottom_bar.dart';
 import 'package:flutter/material.dart';
-
+import 'dart:convert';
 
 class Detail extends StatefulWidget {
   Product _p;
@@ -107,7 +107,7 @@ class _DetailState extends State<Detail> {
           SizedBox(height: 20.0,),
           Center(
             child: Text(
-                _p.price.toString(),
+                _p.price.toString() + ' FCFA',
               style: TextStyle(
                 fontFamily: 'Varela',
                 fontSize: 22.0,
@@ -140,7 +140,7 @@ class _DetailState extends State<Detail> {
                 buttonTextColor: Color(0xFFF17532),
                 context: context,
                 title: "Combien en voulez-vous ?",
-                maxNumber: 100,
+                maxNumber: 10,
                 minNumber: 0,
                 confirmText: "Valider",
                 cancelText: "Annuler",
@@ -225,7 +225,7 @@ class _DetailState extends State<Detail> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => Panier()));
         },
         backgroundColor: Color(0xFFF17532),
-        child: Icon(Icons.shopping_basket),
+        child: Icon(Icons.shopping_basket,color: Colors.white,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomBar(),

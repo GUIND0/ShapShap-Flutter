@@ -15,7 +15,8 @@ class _CommandeState extends State<Commande> {
 
   Future<List<CommandeClass>> _getCommande() async{
     var data = await http.get("http://shapshapmarket.com/api/commandes/?vendeur="+Function.id);
-    var jsonData = json.decode(data.body);
+    String source1 = Utf8Decoder().convert(data.bodyBytes);
+    var jsonData = json.decode(source1);
     List<CommandeClass> commandes = [];
 
     for(var i in jsonData){
@@ -61,7 +62,7 @@ class _CommandeState extends State<Commande> {
                   Container(
                     padding: EdgeInsets.only(right: 15.0),
                     width: MediaQuery.of(context).size.width - 30.0,
-                    height: MediaQuery.of(context).size.height - 300.0,
+                    height: MediaQuery.of(context).size.height - 100.0,
                     child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                       // ignore: missing_return
                       itemCount: snapshot.data.length,

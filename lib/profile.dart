@@ -230,14 +230,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         GestureDetector(
                           onTap: () async {
 
-                            sharedPreferences.remove('token').then((
-                                value) {
-                              Navigator.of(context).pushAndRemoveUntil(
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          LoginApp()), (
-                                  Route<dynamic>route) => false);
-                            });
+                              sharedPreferences.remove('token');
+                              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginApp() ));
+
+
                           },
                           child: ProfileListItem(
                             icon: LineAwesomeIcons.alternate_sign_out,

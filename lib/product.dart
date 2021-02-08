@@ -21,7 +21,8 @@ class _ProductPageState extends State<ProductPage> {
 
   Future<List<Product>> _getProduct() async{
     var data = await http.get(widget.url);
-    var jsonData = json.decode(data.body);
+    String source = Utf8Decoder().convert(data.bodyBytes);
+    var jsonData = json.decode(source);
     List<Product> products = [];
 
     for(var i in jsonData){
@@ -44,7 +45,9 @@ class _ProductPageState extends State<ProductPage> {
             if(snapshot.data == null){
               return Center(
                 child: Container(
-                  child: Text("En chargement ...",style: TextStyle(color: Colors.black),),
+                  child: CircularProgressIndicator(
+                    valueColor: new AlwaysStoppedAnimation<Color>(Color(0xFFCC8053)),
+                  ),
                 ),
               );
 
@@ -56,7 +59,7 @@ class _ProductPageState extends State<ProductPage> {
                   Container(
                     padding: EdgeInsets.only(right: 15.0),
                     width: MediaQuery.of(context).size.width - 30.0,
-                    height: MediaQuery.of(context).size.height - 300.0,
+                    height: MediaQuery.of(context).size.height - 250.0,
                     child: GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
                       // ignore: missing_return
                       itemCount: snapshot.data.length,
